@@ -8,7 +8,12 @@ from typing import Any
 
 import voluptuous as vol
 
-from homeassistant.config_entries import ConfigEntry, ConfigFlow, ConfigFlowResult, OptionsFlow
+from homeassistant.config_entries import (
+    ConfigEntry,
+    ConfigFlow,
+    ConfigFlowResult,
+    OptionsFlow,
+)
 from homeassistant.const import CONF_API_KEY, CONF_LLM_HASS_API
 from homeassistant.core import callback
 from homeassistant.helpers import llm
@@ -76,9 +81,18 @@ def _valid_llm_api_ids(hass, selected: str | list[str] | None) -> list[str]:
     return [api_id for api_id in selected if api_id in known]
 
 
-async def _async_validate_connection(hass, base_url: str, api_key: str) -> dict[str, str]:
+async def _async_validate_connection(
+    hass,
+    base_url: str,
+    api_key: str,
+) -> dict[str, str]:
     """Validate the provided OpenClaw connection settings."""
-    from openai import APIConnectionError, APIStatusError, AsyncOpenAI, AuthenticationError
+    from openai import (
+        APIConnectionError,
+        APIStatusError,
+        AsyncOpenAI,
+        AuthenticationError,
+    )
 
     client = AsyncOpenAI(
         api_key=api_key,

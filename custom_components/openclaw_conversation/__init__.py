@@ -7,13 +7,21 @@ from typing import Any
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryError, ConfigEntryNotReady
+from homeassistant.exceptions import (
+    ConfigEntryAuthFailed,
+    ConfigEntryError,
+    ConfigEntryNotReady,
+)
+from homeassistant.helpers import config_validation as cv
 
+from .const import DOMAIN
 from .helpers import create_client
 
 PLATFORMS: tuple[Platform, ...] = (Platform.AI_TASK, Platform.CONVERSATION)
 
 OpenClawConversationConfigEntry = ConfigEntry[Any]
+
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:

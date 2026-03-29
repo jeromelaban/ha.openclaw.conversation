@@ -1,7 +1,8 @@
 # OpenClaw Conversation
 
-- Status: Draft
+- Status: In progress
 - Created: 2026-03-28
+- Last updated: 2026-03-29
 - Spec ID: 001-initial-feature
 - Type: Initial feature spec
 
@@ -91,6 +92,7 @@ As a Home Assistant user, I want to add the repository as a custom repository in
 
 - The repository contains exactly one integration under `custom_components/openclaw_conversation/`.
 - The repository includes `hacs.json` and required metadata.
+- The GitHub repository has a non-empty description and valid repository topics configured.
 - The repository includes brand assets required for HACS validation.
 - CI includes HACS validation.
 
@@ -159,6 +161,14 @@ As a Home Assistant user, I want to add the repository as a custom repository in
 3. The integration manifest must include at least the fields required for custom integrations and HACS validation.
 4. The manifest must include a custom-integration `version`.
 5. The manifest must declare `config_flow: true`.
+6. The integration manifest must include `documentation` and `issue_tracker` URLs.
+7. The integration manifest `iot_class` must use a value accepted by Home Assistant validation.
+8. The repository must define a GitHub description and HACS-valid repository topics in repository settings.
+
+### FR-8a: Config-entry-only setup
+
+1. The integration must declare itself as config-entry-only for Home Assistant validation.
+2. The module-level setup contract must match the absence of YAML configuration support.
 
 ### FR-9: GitHub Actions
 
@@ -208,6 +218,7 @@ This shape is the intended implementation target, not a commitment that every li
 4. The integration can act as an LLM-backed conversation provider using `openclaw/default`.
 5. The repository passes HACS validation and Home Assistant metadata validation in CI.
 6. The documentation makes the private-network and operator-token security model clear.
+7. The repository metadata required by HACS is present both in-repo and in GitHub repository settings.
 
 ## Risks
 
@@ -215,6 +226,7 @@ This shape is the intended implementation target, not a commitment that every li
 2. Advanced options copied from upstream may confuse users if OpenClaw ignores them.
 3. The phrase "custom API endpoint" sounds simple, but the real compatibility boundary is request semantics, not just URL substitution.
 4. Voice and media features may create false expectations if included too early.
+5. Repository-level HACS requirements can still fail CI even when the code and checked-in metadata are correct.
 
 ## Open Questions
 
@@ -224,6 +236,7 @@ This shape is the intended implementation target, not a commitment that every li
 4. Do we want to support custom headers such as `x-openclaw-model` in a later phase?
 5. Do we need a user-facing SSL verification option for self-signed deployments, or should that be deferred?
 6. Should we track upstream `openai_conversation` periodically and document an update strategy?
+7. Which repository topics should be considered the canonical public metadata set for HACS publication?
 
 ## Recommended Initial Scope Decision
 

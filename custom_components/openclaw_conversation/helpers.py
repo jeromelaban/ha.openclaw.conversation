@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from yarl import URL
 
@@ -12,6 +12,9 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.httpx_client import get_async_client
 
 from .const import CONF_BASE_URL, DEFAULT_OPTIONS, OPTION_KEYS
+
+if TYPE_CHECKING:
+    from openai import AsyncOpenAI
 
 
 def normalize_base_url(value: str) -> str:
@@ -47,7 +50,7 @@ def get_config_payload(data: Mapping[str, Any]) -> dict[str, Any]:
     return {key: value for key, value in data.items() if key not in OPTION_KEYS}
 
 
-def create_client(hass: HomeAssistant, entry: ConfigEntry) -> AsyncOpenAI:
+def create_client(hass: HomeAssistant, entry: ConfigEntry) -> "AsyncOpenAI":
     """Create an OpenAI-compatible async client for OpenClaw."""
     from openai import AsyncOpenAI
 

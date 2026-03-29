@@ -172,7 +172,9 @@ class OpenClawBaseEntity(Entity):
     _attr_has_entity_name = True
 
     def __init__(
-        self, entry: OpenClawConversationConfigEntry, unique_suffix: Literal["conversation", "ai_task"]
+        self,
+        entry: OpenClawConversationConfigEntry,
+        unique_suffix: Literal["conversation", "ai_task"],
     ) -> None:
         """Initialize the entity."""
         self.entry = entry
@@ -252,13 +254,17 @@ class OpenClawBaseEntity(Entity):
                 raise HomeAssistantError("Authentication with OpenClaw failed") from err
             except openai.OpenAIError as err:
                 LOGGER.error("Error talking to OpenClaw: %s", err)
-                raise HomeAssistantError("Error talking to the OpenClaw gateway") from err
+                raise HomeAssistantError(
+                    "Error talking to the OpenClaw gateway"
+                ) from err
 
             if result.usage is not None and hasattr(chat_log, "async_trace"):
                 chat_log.async_trace(
                     {
                         "stats": {
-                            "input_tokens": getattr(result.usage, "prompt_tokens", None),
+                            "input_tokens": getattr(
+                                result.usage, "prompt_tokens", None
+                            ),
                             "output_tokens": getattr(
                                 result.usage, "completion_tokens", None
                             ),
@@ -282,4 +288,6 @@ class OpenClawBaseEntity(Entity):
                 break
 
         if not isinstance(chat_log.content[-1], conversation.AssistantContent):
-            raise HomeAssistantError("The OpenClaw gateway did not return an assistant response")
+            raise HomeAssistantError(
+                "The OpenClaw gateway did not return an assistant response"
+            )
