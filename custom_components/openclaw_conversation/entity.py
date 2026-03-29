@@ -201,8 +201,6 @@ class OpenClawBaseEntity(Entity):
         structure: vol.Schema | None = None,
     ) -> None:
         """Generate an answer for the supplied chat log."""
-        import openai
-
         settings = self.settings
 
         tools: list[dict[str, Any]] | None = None
@@ -244,7 +242,9 @@ class OpenClawBaseEntity(Entity):
                 ),
             }
 
-        client = self.entry.runtime_data
+        runtime_data = self.entry.runtime_data
+        client = runtime_data.client
+        openai = runtime_data.openai_module
 
         for _iteration in range(MAX_TOOL_ITERATIONS):
             try:

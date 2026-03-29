@@ -16,7 +16,6 @@ from homeassistant.config_entries import (
 from homeassistant.const import CONF_API_KEY, CONF_LLM_HASS_API
 from homeassistant.core import callback
 from homeassistant.helpers import llm
-from homeassistant.helpers.httpx_client import get_async_client
 from homeassistant.helpers.selector import (
     NumberSelector,
     NumberSelectorConfig,
@@ -29,6 +28,7 @@ from homeassistant.helpers.selector import (
     TextSelectorConfig,
     TextSelectorType,
 )
+from httpx import HTTPStatusError, RequestError
 
 from .const import (
     CONF_BASE_URL,
@@ -43,7 +43,7 @@ from .const import (
     DEFAULT_TOP_P,
     DOMAIN,
 )
-from .helpers import get_entry_settings, normalize_base_url
+from .helpers import async_probe_connection, get_entry_settings, normalize_base_url
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -86,24 +86,9 @@ async def _async_validate_connection(
     api_key: str,
 ) -> dict[str, str]:
     """Validate the provided OpenClaw connection settings."""
-    from openai import (
-        APIConnectionError,
-        APIStatusError,
-        AsyncOpenAI,
-        AuthenticationError,
-    )
-
-    client = AsyncOpenAI(
-        api_key=api_key,
-        base_url=base_url,
-        http_client=get_async_client(hass),
-    )
-
     try:
-        await client.models.list()
-    except AuthenticationError:
-        return {"base": "invalid_auth"}
-    except APIStatusError as err:
+        await async_probe_connection(hass, base_url, api_key)
+    except HTTPStatusError as err:
         if err.status_code in (401, 403):
             return {"base": "invalid_auth"}
         if err.status_code == 404:
@@ -112,7 +97,7 @@ async def _async_validate_connection(
             return {"base": "cannot_connect"}
         _LOGGER.error("Unexpected API status during validation: %s", err)
         return {"base": "unknown"}
-    except APIConnectionError:
+    except RequestError:
         return {"base": "cannot_connect"}
     except Exception:
         _LOGGER.exception("Unexpected exception while validating OpenClaw settings")
