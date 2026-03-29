@@ -13,7 +13,7 @@ from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import llm
 from homeassistant.helpers.entity import Entity
-from homeassistant.util.slugify import slugify
+from homeassistant.util import slugify
 from voluptuous_openapi import convert
 from yarl import URL
 
