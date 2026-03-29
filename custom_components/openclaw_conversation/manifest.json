@@ -1,8 +1,8 @@
 {
   "domain": "openclaw_conversation",
   "name": "OpenClaw Conversation",
-  "config_flow": true,
   "codeowners": ["@jeromelaban"],
+  "config_flow": true,
   "documentation": "https://github.com/jeromelaban/ha.openclaw.conversation",
   "integration_type": "service",
   "iot_class": "local_polling",
