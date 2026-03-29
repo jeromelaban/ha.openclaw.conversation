@@ -8,16 +8,15 @@ from typing import Any, Literal
 
 import voluptuous as vol
 from homeassistant.components import conversation
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import llm
 from homeassistant.helpers.entity import Entity
-from homeassistant.util.json import json_dumps
 from homeassistant.util.slugify import slugify
 from voluptuous_openapi import convert
 from yarl import URL
 
-from . import OpenClawConversationConfigEntry
 from .const import (
     CONF_MAX_TOKENS,
     CONF_MODEL,
@@ -102,7 +101,7 @@ def _convert_content_to_chat_message(
         return {
             "role": "tool",
             "tool_call_id": content.tool_call_id,
-            "content": json_dumps(content.tool_result),
+            "content": json.dumps(content.tool_result),
         }
 
     if content.role == "system" and content.content:
@@ -123,7 +122,7 @@ def _convert_content_to_chat_message(
                     "id": tool_call.id,
                     "function": {
                         "name": tool_call.tool_name,
-                        "arguments": json_dumps(tool_call.tool_args),
+                        "arguments": json.dumps(tool_call.tool_args),
                     },
                 }
                 for tool_call in content.tool_calls
@@ -173,7 +172,7 @@ class OpenClawBaseEntity(Entity):
 
     def __init__(
         self,
-        entry: OpenClawConversationConfigEntry,
+        entry: ConfigEntry[Any],
         unique_suffix: Literal["conversation", "ai_task"],
     ) -> None:
         """Initialize the entity."""
