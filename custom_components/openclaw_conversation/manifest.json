@@ -1,0 +1,10 @@
+{
+  "domain": "openclaw_conversation",
+  "name": "OpenClaw Conversation",
+  "version": "0.1.0",
+  "config_flow": true,
+  "integration_type": "service",
+  "iot_class": "local_poll",
+  "loggers": ["openai"],
+  "requirements": ["openai>=1.93.0", "voluptuous-openapi>=0.0.5", "yarl>=1.9.4"]
+}

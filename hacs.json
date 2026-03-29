@@ -1,0 +1,6 @@
+{
+  "name": "OpenClaw Conversation",
+  "render_readme": true,
+  "domains": ["openclaw_conversation"],
+  "homeassistant": "2025.7.0"
+}

@@ -1,0 +1,60 @@
+{
+  "title": "OpenClaw Conversation",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to OpenClaw",
+        "description": "Connect Home Assistant to an OpenClaw OpenAI-compatible gateway.",
+        "data": {
+          "base_url": "Gateway base URL",
+          "api_key": "Bearer token",
+          "model": "Default model"
+        },
+        "data_description": {
+          "base_url": "Base URL for the OpenAI-compatible endpoint. The integration automatically normalizes it to end with /v1.",
+          "api_key": "Operator token used to access the OpenClaw gateway.",
+          "model": "Model name to use for conversation and AI task requests."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Reconnect to OpenClaw",
+        "description": "Update the bearer token for the configured OpenClaw gateway.",
+        "data": {
+          "api_key": "Bearer token"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the OpenClaw gateway.",
+      "invalid_auth": "Authentication failed.",
+      "invalid_url": "The provided URL is not valid.",
+      "unknown": "Unexpected error. Check the logs for more details."
+    },
+    "abort": {
+      "already_configured": "This OpenClaw gateway is already configured.",
+      "reauth_successful": "OpenClaw credentials updated successfully."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "OpenClaw options",
+        "data": {
+          "model": "Model",
+          "prompt": "System prompt",
+          "llm_hass_api": "Home Assistant LLM API",
+          "max_tokens": "Max output tokens",
+          "temperature": "Temperature",
+          "top_p": "Top P"
+        },
+        "data_description": {
+          "prompt": "Optional system prompt prepended to each conversation.",
+          "llm_hass_api": "Optional Home Assistant tool APIs exposed to the model.",
+          "max_tokens": "Upper bound for output tokens per request.",
+          "temperature": "Higher values make responses more varied.",
+          "top_p": "Nucleus sampling limit sent to the gateway."
+        }
+      }
+    }
+  }
+}
