@@ -3,13 +3,12 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TYPE_CHECKING
-
-from yarl import URL
+from typing import TYPE_CHECKING, Any
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.httpx_client import get_async_client
+from yarl import URL
 
 from .const import CONF_BASE_URL, DEFAULT_OPTIONS, OPTION_KEYS
 
