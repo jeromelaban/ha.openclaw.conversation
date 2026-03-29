@@ -4,13 +4,16 @@ from __future__ import annotations
 
 import logging
 
-from homeassistant.const import CONF_LLM_HASS_API, CONF_MAX_TOKENS, CONF_MODEL, CONF_PROMPT
+from homeassistant.const import CONF_LLM_HASS_API
 from homeassistant.helpers import llm
 
 DOMAIN = "openclaw_conversation"
 LOGGER = logging.getLogger(__package__)
 
 CONF_BASE_URL = "base_url"
+CONF_MAX_TOKENS = "max_tokens"
+CONF_MODEL = "model"
+CONF_PROMPT = "prompt"
 CONF_TEMPERATURE = "temperature"
 CONF_TOP_P = "top_p"
 

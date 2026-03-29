@@ -5,6 +5,7 @@
   "config_flow": true,
   "integration_type": "service",
   "iot_class": "local_poll",
+  "codeowners": ["@jeromelaban"],
   "loggers": ["openai"],
   "requirements": ["openai>=1.93.0", "voluptuous-openapi>=0.0.5", "yarl>=1.9.4"]
 }

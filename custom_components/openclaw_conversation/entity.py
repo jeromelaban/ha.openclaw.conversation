@@ -6,14 +6,11 @@ from collections.abc import AsyncGenerator, Callable
 import json
 from typing import Any, Literal
 
-import openai
-from openai.types.chat import ChatCompletionMessage
 import voluptuous as vol
 from voluptuous_openapi import convert
 from yarl import URL
 
 from homeassistant.components import conversation
-from homeassistant.const import CONF_MAX_TOKENS, CONF_MODEL
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers import device_registry as dr, llm
 from homeassistant.helpers.entity import Entity
@@ -22,6 +19,8 @@ from homeassistant.util.slugify import slugify
 
 from . import OpenClawConversationConfigEntry
 from .const import (
+    CONF_MAX_TOKENS,
+    CONF_MODEL,
     CONF_TEMPERATURE,
     CONF_TOP_P,
     DOMAIN,
@@ -135,7 +134,7 @@ def _convert_content_to_chat_message(
 
 
 async def _transform_response(
-    message: ChatCompletionMessage,
+    message: Any,
 ) -> AsyncGenerator[conversation.AssistantContentDeltaDict]:
     """Transform an OpenAI-compatible message into chat log deltas."""
     content: str | None
@@ -200,6 +199,8 @@ class OpenClawBaseEntity(Entity):
         structure: vol.Schema | None = None,
     ) -> None:
         """Generate an answer for the supplied chat log."""
+        import openai
+
         settings = self.settings
 
         tools: list[dict[str, Any]] | None = None

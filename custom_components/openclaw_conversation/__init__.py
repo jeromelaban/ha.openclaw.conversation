@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from openai import APIConnectionError, APIStatusError, AsyncOpenAI, AuthenticationError
+from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
@@ -13,7 +13,7 @@ from .helpers import create_client
 
 PLATFORMS: tuple[Platform, ...] = (Platform.AI_TASK, Platform.CONVERSATION)
 
-OpenClawConversationConfigEntry = ConfigEntry[AsyncOpenAI]
+OpenClawConversationConfigEntry = ConfigEntry[Any]
 
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
@@ -25,6 +25,8 @@ async def async_setup_entry(
     hass: HomeAssistant, entry: OpenClawConversationConfigEntry
 ) -> bool:
     """Set up OpenClaw Conversation from a config entry."""
+    from openai import APIConnectionError, APIStatusError, AuthenticationError
+
     client = create_client(hass, entry)
 
     try:

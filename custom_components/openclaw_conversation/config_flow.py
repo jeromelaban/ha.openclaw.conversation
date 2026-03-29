@@ -6,11 +6,10 @@ from collections.abc import Mapping
 import logging
 from typing import Any
 
-from openai import APIConnectionError, APIStatusError, AsyncOpenAI, AuthenticationError
 import voluptuous as vol
 
 from homeassistant.config_entries import ConfigEntry, ConfigFlow, ConfigFlowResult, OptionsFlow
-from homeassistant.const import CONF_API_KEY, CONF_LLM_HASS_API, CONF_MAX_TOKENS, CONF_MODEL, CONF_PROMPT
+from homeassistant.const import CONF_API_KEY, CONF_LLM_HASS_API
 from homeassistant.core import callback
 from homeassistant.helpers import llm
 from homeassistant.helpers.httpx_client import get_async_client
@@ -29,6 +28,9 @@ from homeassistant.helpers.selector import (
 
 from .const import (
     CONF_BASE_URL,
+    CONF_MAX_TOKENS,
+    CONF_MODEL,
+    CONF_PROMPT,
     CONF_TEMPERATURE,
     CONF_TOP_P,
     DEFAULT_MAX_TOKENS,
@@ -76,6 +78,8 @@ def _valid_llm_api_ids(hass, selected: str | list[str] | None) -> list[str]:
 
 async def _async_validate_connection(hass, base_url: str, api_key: str) -> dict[str, str]:
     """Validate the provided OpenClaw connection settings."""
+    from openai import APIConnectionError, APIStatusError, AsyncOpenAI, AuthenticationError
+
     client = AsyncOpenAI(
         api_key=api_key,
         base_url=base_url,

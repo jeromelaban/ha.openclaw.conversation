@@ -5,7 +5,6 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
-from openai import AsyncOpenAI
 from yarl import URL
 
 from homeassistant.config_entries import ConfigEntry
@@ -50,6 +49,8 @@ def get_config_payload(data: Mapping[str, Any]) -> dict[str, Any]:
 
 def create_client(hass: HomeAssistant, entry: ConfigEntry) -> AsyncOpenAI:
     """Create an OpenAI-compatible async client for OpenClaw."""
+    from openai import AsyncOpenAI
+
     settings = get_entry_settings(entry)
     return AsyncOpenAI(
         api_key=settings.get("api_key"),
