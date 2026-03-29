@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from collections.abc import AsyncGenerator, Callable
 import json
+from collections.abc import AsyncGenerator, Callable
 from typing import Any, Literal
 
 import voluptuous as vol

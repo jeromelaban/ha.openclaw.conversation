@@ -1,13 +1,13 @@
 {
   "domain": "openclaw_conversation",
   "name": "OpenClaw Conversation",
-  "version": "0.1.0",
   "config_flow": true,
+  "codeowners": ["@jeromelaban"],
+  "documentation": "https://github.com/jeromelaban/ha.openclaw.conversation",
   "integration_type": "service",
   "iot_class": "local_polling",
-  "codeowners": ["@jeromelaban"],
-  "loggers": ["openai"],
-  "documentation": "https://github.com/jeromelaban/ha.openclaw.conversation",
   "issue_tracker": "https://github.com/jeromelaban/ha.openclaw.conversation/issues",
-  "requirements": ["openai>=1.93.0", "voluptuous-openapi>=0.0.5", "yarl>=1.9.4"]
+  "loggers": ["openai"],
+  "requirements": ["openai>=1.93.0", "voluptuous-openapi>=0.0.5", "yarl>=1.9.4"],
+  "version": "0.1.0"
 }
