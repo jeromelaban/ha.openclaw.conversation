@@ -2,6 +2,14 @@
 
 A Home Assistant custom integration that connects the Assist conversation and AI Task platforms to an OpenClaw OpenAI-compatible Gateway API.
 
+## Important
+
+This repository is a **HACS custom integration repository**, not a **Supervisor add-on repository**.
+
+If you add it under **Settings > Add-ons > Add-on Store > Repositories**, Home Assistant will reject it with `not a valid add-on repository`.
+
+Use **HACS > Integrations > Custom repositories** instead.
+
 ## Features
 
 - Config flow for an OpenClaw-compatible `base_url`, bearer token, and default model
@@ -26,10 +34,14 @@ Not included yet:
 ### HACS custom repository
 
 1. Open HACS in Home Assistant.
-2. Add this repository as a custom repository with category `Integration`.
-3. Install `OpenClaw Conversation`.
-4. Restart Home Assistant.
-5. Add the integration from Settings > Devices & services.
+2. Go to `HACS > Integrations`.
+
+3. Open the three-dot menu and choose `Custom repositories`.
+4. Add this repository URL.
+5. Choose category `Integration`.
+6. Install `OpenClaw Conversation`.
+7. Restart Home Assistant.
+8. Add the integration from `Settings > Devices & services`.
 
 ### Manual
 
@@ -51,6 +63,19 @@ The integration normalizes the configured URL to end with `/v1` automatically.
 
 - Main integration code: [custom_components/openclaw_conversation](custom_components/openclaw_conversation)
 - Spec and research notes: [specs/001-initial-feature](specs/001-initial-feature)
+
+## Troubleshooting
+
+### `not a valid add-on repository`
+
+Cause: the repo was added to the Supervisor add-on store instead of HACS.
+
+Fix:
+
+1. Remove the repository from the add-on store custom repositories list.
+2. Open HACS.
+3. Add the same GitHub URL as a custom repository with category `Integration`.
+4. Install the integration from HACS.
 
 ## Security
 
